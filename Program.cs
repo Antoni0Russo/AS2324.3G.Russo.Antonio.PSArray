@@ -9,17 +9,27 @@
             int posmax = 0;
             double min = 0;
             int posmin = 0;
-
+            double mediaPonderata = 0;
             Console.WriteLine("imposta quanti voti voi inserire  ");
             int nVoti= Convert.ToInt32(Console.ReadLine());
             int[] pesi = new int[nVoti];
             double[] voti = new double[nVoti];
             StampaVotiPesi(voti, pesi, nVoti);
+            
             CaricaVettori(ref voti, ref pesi, nVoti);
             Console.WriteLine("arrray caricato randomicamente ");
             StampaVotiPesi(voti, pesi, nVoti);
+            
             StampaVotiDispariMaggiori4(ref voti, ref pesi, nVoti);
-            Console.WriteLine("array  ");
+            Console.WriteLine("array   ");
+            StampaVotiPesi(voti, pesi, nVoti);
+
+            Console.WriteLine("array  MediaPonderata");
+            mediaPonderata = MediaPonderata(voti, pesi, nVoti, ref max, ref posmax, ref min, ref posmin);
+            StampaVotiPesi(voti, pesi, nVoti);
+
+            Console.WriteLine("array OrdinaPerVoto ");
+            OrdinaPerVoto(ref voti, ref pesi, nVoti);
             StampaVotiPesi(voti, pesi, nVoti);
 
         }
@@ -36,8 +46,8 @@
             Random random = new Random();
             for (int i = 0; i < nVoti; i++)
             {
-                pesi[i] = random.Next(1, 11);
-                voti[i] = random.Next(0, 101);
+                pesi[i] = random.Next();
+                voti[i] =1+ (random.NextDouble()*9);
             }
         }
         //riguardare per probabile errore (non prende numeri dispari)
@@ -57,15 +67,15 @@
             }
         }
         //riguardare per probabile errore (finire )
-        double MediaPonderata(double[] voti, int[] pesi, int nVoti, ref double max, ref int posmax, ref double min, ref int posmin)
+        static double MediaPonderata(double[] voti, int[] pesi, int nVoti, ref double max, ref int posmax, ref double min, ref int posmin)
         {
-            double  contenitoreNumeratore = 0;
-            double  contenitoreDenominatore = 0;
-            for (int i = 0;i < nVoti; i++)
+            double contenitoreNumeratore = 0;
+            double contenitoreDenominatore = 0;
+            for (int i = 0; i < nVoti; i++)
             {
-                contenitoreNumeratore =+(voti[i] * pesi[i]);
+                contenitoreNumeratore = +(voti[i] * pesi[i]);
                 contenitoreDenominatore = +voti[i];
-                
+
             }
             double mediaPonderata = contenitoreNumeratore / contenitoreDenominatore;
             OrdinaPerVoto(ref voti, ref pesi, nVoti);
@@ -76,7 +86,7 @@
                 min = pesi[nVoti];
                 posmin = nVoti;
             }
-                return mediaPonderata;
+            return mediaPonderata;
         }
         double ElencoVotiNellIntorno(double[] voti, int[] pesi, int nVoti, int voto)
         {
