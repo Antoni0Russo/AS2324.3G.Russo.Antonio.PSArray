@@ -51,6 +51,27 @@
 
             }
         }
+        double ElencoVotiNellIntorno(double[] voti, int[] pesi, int nVoti, int voto)
+        {
+           
+        }
+        void OrdinaPerVoto(ref double[] voti, ref int[] pesi, int nVoti)
+        {
+        int n = voti.Length;
+        for (int i = 0; i < n - 1; i++)
+        {
+            for (int j = 0; j < voti.Length - i - 1; j++)
+            {
+                if (voti[j] > voti[j + 1])
+                {
+                    
+                    int temp = voti[j];
+                    voti[j] = voti[j + 1];
+                    voti[j + 1] = temp;
+                }
+            }
+        }
+    }
 
     }
 }
